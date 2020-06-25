@@ -1,0 +1,290 @@
+
+<div  id="header-wrap" >
+<div    style=" cursor: pointer;" (click)="toggleMenu()"><mat-icon  class="menu-icon" aria-hidden="false" aria-label="Example home icon">menu</mat-icon></div>
+<div class="title-icon" (click)="titleClick()"><i style="color: rgb(105, 182, 228);cursor: pointer;" class="fa fa-hashtag"></i><span class="titleSpan">TopTrendingNow</span></div>
+
+    <!-- <div *ngIf="!widthCheck"><img style="cursor: pointer;" (click) ="refreshWithHeader()" [ngClass]="isMobile ? 'hashImgMobile':'hashImgDesk'"  src="assets/title_logo.png"> </div>
+    <div *ngIf="widthCheck"><img style="cursor: pointer;" (click) ="refreshWithHeader()" class="widthCheck" src="assets/title_logo.png"> </div> -->
+     <!-- <td class="hashtagImg" style="border:none">
+<div style="cursor: pointer;" (click) ="refreshWithHeader()" [ngClass]="isMobile ? 'mobileTitle':'desktopTitle'" >TopTrendingNow</div>
+</td> -->
+</div  >
+    
+<div [ngClass]="hide === 'About' ? 'hide-me':''">
+<div id='messageBody' #scrollMe [scrollLeft]="scrollMe.scrollWidth" class="scrollmenuTime">
+      <span style="    font-family: sans-serif;">Before :</span>
+
+  <a class='target'>14h</a>
+  <a href="#news" class='target'>13h</a>
+  <a href="#contact" class='target'>12h</a>
+  <a href="#about" class='target'>11h</a>
+  <a href="#support" class='target'>10h</a>
+  <a href="#blog" class='target'>9h</a>
+  <a href="#tools" class='target'>8h</a>  
+  <a href="#base" class='target'>7h</a>
+  <a href="#custom" class='target'>6h</a>
+  <a href="#more" class='target'>5h</a>
+  <a href="#logo" class='target'>4h</a>
+  <a href="#friends" class='target'>3h</a>
+  <a  class='target' (click)="clicktoHover()">2h</a>
+  <a  class='target' (click)="clicktoHover()">1h</a>
+  <a  class='target' [ngClass]="changeActive ? 'active':''"  (click) = "clicktoHover()">
+  Now</a>
+</div>
+<!-- <spinner-dialog></spinner-dialog> -->
+<mat-tab-group>
+  <mat-tab [ngClass]="isMobile ? 'tablinksMobile':'tablinksDesktop'"   (click)="openTab($event, 'twitter')" id="defaultOpen" label="Top Twitter Trends"> Content 1 </mat-tab>
+  <mat-tab [ngClass]="isMobile ? 'tablinksMobile':'tablinksDesktop'"  (click)="openTab($event, 'google')" label="Top Google Search"> Content 2 </mat-tab>
+  <mat-tab [ngClass]="isMobile ? 'tablinksMobile':'tablinksDesktop'"   (click)="openTab($event, 'youtube')" label="Youtube Most Popular Now"> Content 3 </mat-tab>
+</mat-tab-group>
+
+
+
+<div #scrollMe  class="scrollmenu" style="    box-shadow: 5px 0px 8px 4px #888888;">
+  <button [ngClass]="isMobile ? 'tablinksMobile':'tablinksDesktop'"   (click)="openTab($event, 'twitter')" id="defaultOpen">Top Twitter Trends</button>
+  <button [ngClass]="isMobile ? 'tablinksMobile':'tablinksDesktop'"  (click)="openTab($event, 'google')">Top Google Search</button>
+  <button [ngClass]="isMobile ? 'tablinksMobile':'tablinksDesktop'"   (click)="openTab($event, 'youtube')">Youtube Most Popular Now</button>
+</div>
+
+<div id="twitter" class="tabcontent">
+  
+  <div style="text-align: center;">
+
+
+<block-ui>
+	<div>
+<table mat-table [dataSource]="trendTwitter" class="mat-elevation-z8">
+
+  <!--- Note that these columns can be defined in any order.
+        The actual rendered columns are set as a property on the row definition" -->
+
+  <!-- Position Column -->
+  <ng-container matColumnDef="rank">
+    <th class="TrFixing" mat-header-cell *matHeaderCellDef> Rank </th>
+    <td class="tdTrFixing" mat-cell *matCellDef="let element"> {{element.rank}} </td>
+  </ng-container>
+
+  <!-- Name Column -->
+  <ng-container matColumnDef="hashtag">
+    <th class="TrFixing" mat-header-cell *matHeaderCellDef> Trends </th>
+    <td class="tdTrFixing" mat-cell *matCellDef="let element"> {{element.hashtag}} </td>
+  </ng-container>
+
+  <!-- Weight Column -->
+  <ng-container matColumnDef="tweetVolume">
+    <th class="TrFixing" mat-header-cell *matHeaderCellDef> Volume </th>
+    <td class="tdTrFixing" mat-cell *matCellDef="let element">  
+    <div *ngIf="element.tweetVolume != -1; else elseDiv">
+            {{element.tweetVolume}}
+        </div>
+        <ng-template #elseDiv>
+            NA
+        </ng-template>
+        </td>
+  </ng-container>
+
+    
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr style='cursor: pointer; cursor: hand;' mat-row *matRowDef="let row; columns: displayedColumns;" (click)="openInNewTab(row.tweetURL)"></tr>
+</table>
+</div>
+</block-ui>
+
+    
+<!-- <table class="table" style="table-layout: auto;" class="mat-elevation-z8">
+<thead>
+  
+  
+  <tr>
+    <th style="width: 10vw;">Rank</th>
+    <th style="word-wrap: break-word;">Trend</th>
+    <th>Volume</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let trend of trendTwitter " style='cursor: pointer; cursor: hand;' (click)="openInNewTab(trend.tweetURL)">
+    <td>{{trend.rank}}</td>
+    <td style="word-break: break-all;">{{trend.hashtag}}</td>
+    <td style="word-break: break-all;" *ngIf="trend.tweetVolume == -1">NA</td>
+    <td style="word-break: break-all;" *ngIf="trend.tweetVolume != -1">{{trend.tweetVolume}}</td>
+  </tr>
+
+  </tbody>
+</table> -->
+</div>
+</div>
+
+ <div id="google" style="text-align: center;" class="tabcontent">
+  
+  <!-- <table class="table" style="table-layout: auto;">
+  <thead>
+  <tr>
+    <th>Rank</th>
+    <th>Title</th>
+    <th>Volume</th>
+  </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let trend of trendGoogle " style='cursor: pointer; cursor: hand;' (click)="openInNewTab(trend.title,true)">
+    <td>{{trend.rank}}</td>
+    <td>{{trend.title}}</td>
+    <td>{{trend.traffic}}</td>
+  </tr>
+</tbody>
+</table>  -->
+
+<table mat-table [dataSource]="trendGoogle" class="mat-elevation-z8">
+
+  <!--- Note that these columns can be defined in any order.
+        The actual rendered columns are set as a property on the row definition" -->
+
+  <!-- Position Column -->
+  <ng-container matColumnDef="rank">
+    <th class="TrFixing" mat-header-cell *matHeaderCellDef> Rank </th>
+    <td class="tdTrFixing" mat-cell *matCellDef="let element"> {{element.rank}} </td>
+  </ng-container>
+
+  <!-- Name Column -->
+  <ng-container matColumnDef="title">
+    <th class="TrFixing" mat-header-cell *matHeaderCellDef> Title </th>
+    <td class="tdTrFixing" mat-cell *matCellDef="let element"> {{element.title}} </td>
+  </ng-container>
+
+  <!-- Weight Column -->
+  <ng-container matColumnDef="traffic">
+    <th class="TrFixing" mat-header-cell *matHeaderCellDef> Volume </th>
+    <td class="tdTrFixing" mat-cell *matCellDef="let element">  
+    <div *ngIf="element.tweetVolume != -1; else elseDiv">
+            {{element.traffic}}
+        </div>
+        <ng-template #elseDiv>
+            NA
+        </ng-template>
+        </td>
+  </ng-container>
+
+  
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumnsGoogle"></tr>
+  <tr style='cursor: pointer; cursor: hand;' mat-row *matRowDef="let row; columns: displayedColumnsGoogle;" (click)="openInNewTab(row.title,true)"></tr>
+</table>
+
+
+
+
+</div>
+
+
+<!-- Youtube start -->
+
+
+
+
+<!-- Youtube end -->
+
+
+
+
+
+<div id="youtube" style="text-align: center;overflow: auto;" class="tabcontent">  
+  <table class="table" style="table-layout: auto; box-shadow: 5px 0px 8px 4px #888888;">
+  <thead>
+  <tr>
+    <th style="    height: 42px;padding-left: 1%;">Title</th>
+    <th></th>
+    <th>View Count</th>
+    <th>Like/DisLike</th>
+  </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let trend of trendYoutube " style='cursor: pointer; cursor: hand;' (click)="openInNewTabYouTube(trend.id)">
+    <td style="word-break: break-all;"><img style="height: 70px;"  src={{trend.thumbnailURL}}>
+
+    </td>
+    <td>    <span>{{trend.title}}</span>
+</td>
+    <td style="word-break: break-all;">{{trend.viewCount}}</td>
+    <td style="word-break: break-all;"><img style="height: 15px;"  src="assets/like.png"> : {{trend.likeCount/(trend.likeCount+trend.dislikeCount)*100 | number: '1.0-0'}}% <br><img style="height: 15px;"  src="assets/dislike.png"> : {{trend.dislikeCount/(trend.likeCount+trend.dislikeCount)*100 | number: '1.0-0'}}%</td>
+  </tr>
+</tbody>
+</table>
+</div>
+
+
+
+<div>
+<!-- <mat-tab-group>
+  <mat-tab label="Top Twitter Trends">
+<div>
+<table>
+  <thead>
+  <tr>
+    <th>Rank</th>
+    <th>Trend</th>
+    <th>Volume</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let trend of trendTwitter " style='cursor: pointer; cursor: hand;' (click)="openInNewTab(trend.tweetURL)">
+    <td>{{trend.rank}}</td>
+    <td>{{trend.hashtag}}</td>
+    <td *ngIf="trend.tweetVolume == -1">NA</td>
+    <td *ngIf="trend.tweetVolume != -1">{{trend.tweetVolume}}</td>
+  </tr>
+
+  </tbody>
+</table>
+</div>
+  </mat-tab>
+  <mat-tab label="Top Google Search">
+    <table>
+  <thead>
+  <tr>
+    <th>Rank</th>
+    <th>Title</th>
+    <th>Volume</th>
+  </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let trend of trendGoogle " style='cursor: pointer; cursor: hand;' (click)="openInNewTab(trend.title,true)">
+    <td>{{trend.rank}}</td>
+    <td>{{trend.title}}</td>
+    <td>{{trend.traffic}}</td>
+  </tr>
+</tbody>
+</table>
+  </mat-tab>
+</mat-tab-group> -->
+</div>
+
+</div>
+
+
+
+
+<div class="footer">
+
+<!-- <app-side-menu [activePane]="isLeftVisible ? 'left' : 'right'">
+  <div leftPane>LEFT</div>
+  <div rightPane>RIGHT</div>
+</app-side-menu>
+
+<button (click)="isLeftVisible = !isLeftVisible">Toggle panes</button> -->
+  <app-side-menu [@slideInOut]="menuState" (selectedMenu)="selectedMenu($event)"></app-side-menu>
+
+<!-- <mat-icon aria-hidden="false" aria-label="Example home icon">home</mat-icon>
+<i class="fa fa-bars" aria-hidden="true"></i>
+<button mat-button>
+    <mat-icon>mic</mat-icon>
+    Start Recording
+</button>
+  <button mat-button><mat-icon>mic</mat-icon> Start Recording</button>
+      <br/>
+      <button mat-raised-button color="accent"><mat-icon>mic</mat-icon> Start Recording</button> -->
+  <p>Copyright © 2020 TopTrendingNow.com™.
+     <span>v0.0.8 Beta</span><br>
+      <span>Feedback @ sarvesh.y305@gmail.com</span>
+ 
+ </p>
+</div>
